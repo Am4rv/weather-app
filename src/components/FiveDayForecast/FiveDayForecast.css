@@ -1,0 +1,21 @@
+.forecast-container {
+  margin-top: 2rem;
+  text-align: center;
+  color: white;
+}
+
+.forecast-cards {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.forecast-card {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+  border-radius: 8px;
+  padding: 1rem;
+  width: 120px;
+  color: white;
+}

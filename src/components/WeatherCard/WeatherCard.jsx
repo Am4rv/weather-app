@@ -1,3 +1,5 @@
+import "./WeatherCard.css";
+
 export default function WeatherCard({ weather }) {
   const iconUrl = `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`;
 
@@ -9,6 +11,8 @@ export default function WeatherCard({ weather }) {
       <p>🌥️ Clima: {weather.weather[0].description}</p>
       <p>💧 Humedad: {weather.main.humidity}%</p>
       <p>🌬️ Viento: {weather.wind.speed} m/s</p>
+      <p>📈 Presión: {weather.main.pressure} hPa</p>
+      <p className="description">Clima: {weather.weather[0].description}</p>
     </div>
   );
 }

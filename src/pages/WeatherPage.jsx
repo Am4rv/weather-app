@@ -1,10 +1,15 @@
 import { useState } from "react";
-import WeatherCard from "../components/WeatherCard";
-import { getWeatherByCity } from "../service/weatherService";
+import WeatherCard from "../components/WeatherCard/WeatherCard";
+import FiveDayForecast from "../components/FiveDayForecast/FiveDayForecast";
+import SearchBar from "../components/SearchBar/SearchBar";
+import Loader from "../components/Loader/Loader";
+import { getWeatherByCity, getFiveDayForecast } from "../service/weatherService";
+import "./WeatherPage.css";
 
 export default function WeatherPage() {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
+  const [forecast, setForecast] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -12,6 +17,7 @@ export default function WeatherPage() {
     if (city.trim() === "") {
       setError("Por favor ingresa una ciudad");
       setWeather(null);
+      setForecast([]);
       return;
     }
 
@@ -19,10 +25,14 @@ export default function WeatherPage() {
     setError("");
 
     try {
-      const data = await getWeatherByCity(city);
-      setWeather(data);
+      const weatherData = await getWeatherByCity(city);
+      setWeather(weatherData);
+
+      const forecastData = await getFiveDayForecast(city);
+      setForecast(forecastData);
     } catch (err) {
       setWeather(null);
+      setForecast([]);
       setError(err.message);
     } finally {
       setLoading(false);
@@ -30,22 +40,13 @@ export default function WeatherPage() {
   };
 
   return (
-    <div style={{ padding: "2rem", fontFamily: "Arial, sans-serif" }}>
-      <h1>🌤️ Weather App</h1>
-      <input
-        type="text"
-        placeholder="Ingresa una ciudad"
-        value={city}
-        onChange={(e) => setCity(e.target.value)}
-      />
-      <button onClick={handleSearch}>Buscar clima</button>
+    <div className="weather-page">
+      <SearchBar city={city} setCity={setCity} onSearch={handleSearch} />
 
-      {loading && <p>Cargando...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {loading && <Loader />}
+      {error && <p className="error">{error}</p>}
       {weather && <WeatherCard weather={weather} />}
+      {forecast.length > 0 && <FiveDayForecast forecast={forecast} />}
     </div>
   );
 }
-// Este componente maneja la lógica de búsqueda de clima por ciudad
-// y muestra el resultado utilizando el componente WeatherCard.
-// También maneja el estado de carga y errores, proporcionando una experiencia de usuario fluida.

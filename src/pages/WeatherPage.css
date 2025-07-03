@@ -1,0 +1,53 @@
+body{
+    overflow-x: hidden;
+}
+.weather-page {
+  min-height: 100vh;
+  min-width: 97vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centra verticalmente */
+  align-items: center;      /* Centra horizontalmente */
+  background: linear-gradient(to right, #60a5fa, #a78bfa);
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.weather-page h1 {
+  color: white;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.weather-page input {
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.weather-page button {
+  padding: 0.5rem 1rem;
+  background-color: #facc15;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 0.5rem;
+}
+
+.weather-page button:hover {
+  background-color: #eab308;
+}
+
+.weather-page .error {
+  color: #fca5a5;
+  margin-top: 0.5rem;
+}
+
+.weather-page .search-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
